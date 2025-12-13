@@ -1,0 +1,72 @@
+{% extends "mainBlog/base.html" %}
+
+
+{% block content %}
+<main class="container">
+   
+
+  <br>
+  <div class="text-primary text-uppercase fw-bold" style="font-size:30px">
+    Category Post Is | {{blog.category.category_name}}
+  </div>
+  
+  <br>
+  
+  <div class="row g-5">
+    <div class="col-md-8">
+      <h3 class="text-warning text-uppercase pb-4 mb-4 fst-italic border-bottom">
+        Blog Title : {{blog.title}}
+      </h3>
+      
+      <div class ="card shadow-sm mb-4">
+        <div class="row g-0">
+            <div class="col-md-8">
+                <div class ="card-body">
+                    <h3 class="card-title text-capitalize">
+                        Blog.title : {{blog.title}}
+                    </h3>
+
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        By @{{blog.author}} {{ blog.created_at|timesince }} ago 
+                    </h6>
+   
+                    <p class="card-text mt-3">
+                        <strong>Blog Short Information :</strong> {{blog.short_information}}
+                    </p>
+      
+                    <p class="card-text">
+                        <strong>Blog Body : </strong>{{blog.blog_body}}
+                    </p>
+
+                    <a href="#" class="btn btn-primary btn-sm mt-2">
+                        Read More
+                    </a>
+
+                </div>
+            </div>
+            
+     
+            <!-- RIGHT COLUMN : Blog Image -->
+            <div class="col-md-4">
+                <img src="{{blog.featured_image.url}}" 
+                    class="img-fluid rounded-end h-100 w-100" alt="{{blog.title}}" 
+                    style="object-fit: cover;">
+
+            </div>    
+              
+        </div>
+    </div>
+      
+
+      <nav class="blog-pagination" aria-label="Pagination">
+        <a class="btn btn-outline-primary" href="#">Older</a>
+        <a class="btn btn-outline-secondary disabled" href="#" tabindex="-1" aria-disabled="true">Newer</a>
+      </nav>
+
+    </div>
+
+  </div>
+</main>
+
+{% endblock  %}
+

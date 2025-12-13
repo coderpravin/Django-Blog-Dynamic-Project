@@ -1,0 +1,42 @@
+{% extends "mainBlog/base.html" %}
+
+
+{% block content %}
+
+  <br>
+  <div class="text-primary text-uppercase fw-bold" style="font-size:30px">
+    Category Post Is | {{category.category_name}}
+  </div>
+  
+  <br>
+  
+  <div class="row g-5">
+    <div class="col-md-8">
+      <h3 class="text-warning text-uppercase pb-4 mb-4 fst-italic border-bottom">
+        Blog Title 
+      </h3>
+      
+      <div class ="card-border-0">
+        <div class ="card-body">
+          <h5 class="text-capitalize">Blog.title</h5>
+          <h5 class="text-capitalize">Blog Author</h5>
+          <h5 class="text-capitalize">Blog Short Information</h5>
+          <h5 class="text-capitalize">Blog Body</h5>
+          <small class="mb-1 text-muted">{{ post.created_at | timesince }} ago | <b> @{{ post.author}} </b> </small>
+          <p class="card-text"> {{post.blog_body}} </p>
+        </div>
+      </div>
+      
+
+      <nav class="blog-pagination" aria-label="Pagination">
+        <a class="btn btn-outline-primary" href="#">Older</a>
+        <a class="btn btn-outline-secondary disabled" href="#" tabindex="-1" aria-disabled="true">Newer</a>
+      </nav>
+
+    </div>
+
+  </div>
+
+</main>
+
+{% endblock  %}
