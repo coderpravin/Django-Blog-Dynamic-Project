@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from .models import Category, Blog
+from assignment1.models import About, SocialLink
 import logging
 
 #create logging here
@@ -12,14 +13,20 @@ logger = logging.getLogger(__name__)
 def home(request):
     categories  = Category.objects.all()
     featured_post = Blog.objects.filter(is_featured=True)
+    abouts = About.objects.get(id=1)
+    sociallink = SocialLink.objects.all()
+
     #posts = Blog.objects.filter(status="Published")
     posts = Blog.objects.filter(is_featured=False, status="Published")
     print("Posts",posts)
     logger.debug(f"Home page called")
     context = {
+        
          'categories':categories,
          'featured_post':featured_post,
-         'posts' : posts
+         'posts' : posts,
+         'abouts' : abouts,
+         'sociallink' : sociallink,
         }
     return render(request, 'mainBlog/home.html', context)
 
