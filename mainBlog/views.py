@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from .models import Category, Blog
 from assignment1.models import About, SocialLink
+from django.db.models import Q
 import logging
 
 #create logging here
@@ -54,7 +55,26 @@ def blog_info_id(request,pk):
 
 def single_Blog_Slug(request,slug):
     blog = get_object_or_404(Blog, slug=slug)
+    social_links = SocialLink.objects.all()
     context = {
         'blog':blog,
+        'social_links' : social_links,
     }
     return render(request,'mainBlog/blog_by_slug.html', context)
+
+def search_blog(request):
+    keyword = request.GET.get('keyword','')
+    
+    blogs = Blog.objects.filter(Q(title__icontains = keyword)|
+                        Q(short_information__icontains = keyword)|
+                        Q(blog_body__icontains = keyword))
+    
+    context = {
+        'blogs' : blogs,
+        'keyword' : keyword
+    }
+    
+    return render(request, 'mainBlog/search_blog.html', context)
+    
+    
+    
