@@ -1,9 +1,10 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import Category, Blog
 from assignment1.models import About, SocialLink
 from django.db.models import Q
 import logging
+from .forms import RegistrationForm
 
 #create logging here
 logging.basicConfig(filename='sample.log',
@@ -77,4 +78,21 @@ def search_blog(request):
     return render(request, 'mainBlog/search_blog.html', context)
     
     
-    
+def register(request):
+    if request.method == "POST":
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('loginUser')
+        else:
+            print(form.errors)
+    else:
+        
+        form = RegistrationForm()
+    context = {
+        'form' : form
+    }
+    return render(request, 'mainBlog/register.html', context)
+
+def loginUser(request):
+    return render(request, 'mainBlog/login.html')
