@@ -5,9 +5,11 @@ from assignment1.models import About, SocialLink
 from django.db.models import Q
 import logging
 from .forms import RegistrationForm
-
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import authenticate, login, logout 
 #create logging here
 logging.basicConfig(filename='sample.log',
+                    
                     level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
@@ -95,4 +97,26 @@ def register(request):
     return render(request, 'mainBlog/register.html', context)
 
 def loginUser(request):
-    return render(request, 'mainBlog/login.html')
+    if request.method == "POST":
+        form = AuthenticationForm(request, request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password =  form.cleaned_data.get('password')
+            
+            user = authenticate(username = username, password=password)
+            
+            if user is not None:
+                login(request, user)
+                return redirect("home")
+        
+            
+    else:
+        form = AuthenticationForm()
+    context = {
+        'form' : form
+    }
+    return render(request, 'mainBlog/login.html', context)
+
+def logoutuser(request):
+    logout(request)
+    return redirect('home')

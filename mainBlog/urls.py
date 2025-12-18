@@ -12,4 +12,5 @@ urlpatterns = [
     #Register Url Here
     path('register', views.register, name="register"),
     path('loginUser', views.loginUser, name="loginUser"),
+    path('logoutuser', views.logoutuser, name="logoutuser"),
 ]
